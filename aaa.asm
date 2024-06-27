@@ -1,19 +1,17 @@
 ; nasm -f elf64 -o aaa.o aaa.asm && ld -o aaa aaa.o && ./aaa
 
-SECTION .DATA:
-  A: DB 'a'
-  A_LEN: EQU $ - A
+SECTION .data
+A: DB 'a'
 
-SECTION .TEXT:
-  GLOBAL _start
+SECTION .text
+GLOBAL _start
 
-  PRINT_A:
-    MOV RAX, 1
-    MOV RDI, 1
-    MOV RSI, A
-    MOV RDX, A_LEN
-    SYSCALL
-    JMP PRINT_A
+_start:
+        MOV RAX, 1
+        MOV RDI, RAX
+        MOV RDX, RAX
+        MOV RSI, A
 
-  _start:
-    JMP PRINT_A
+LOOP:
+        SYSCALL
+        JMP LOOP
